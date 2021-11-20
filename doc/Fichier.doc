@@ -1,0 +1,95 @@
+/**
+    Sauvegarde les paramètres dans le fichier option.dat
+    param 'para' : Pointeur vers les paramètres à sauvegarder
+ */
+void save_option(Parametre *para);
+
+/**
+    Charge les options du fichier option.dat (default_option.dat dans le cas échéant)
+    param 'para' : Pointeur vers la structure à remplir
+    retour : 1 si le fichier est lu correctement
+             0 si un problème surviens lors de la lecture
+ */
+int load_option(Parametre *para);
+
+/**
+    Sauvegarde la partie dans le fichier 'fname'.sav
+    param 'p' : Pointeur vers le joueur à sauvegarder
+    param 'fname' : Nom du fichier où sauvegarder les données
+    param 'last_world' : Dernier monde débloqué par le joueur
+    param 'current_world' : Numéro du monde courant (0 si le joueur n'est pas dans un monde)
+    param 'fpos' : Position de la tête de lecture dans le fichier du monde
+    param 'score' : Score atteint par le joueur au moment de la sauvegarde
+ */
+void save_partie(Player *p, char* fname, int last_world, int current_world, int fpos, int score);
+
+/**
+    Lit un entier entre des bornes dans le fichier 'in' (ouvert en lecture)
+    param 'in' : Fichier à lire
+    param 'v' : pointeur où stocker la valeur lu
+    param 'min' : Borne minimum de l'entier lu
+    param 'max' : Borne maximum de l'entier lu
+    retour : 1 si l'entier est lu correctement et est bien entre 'min' et 'max'
+             0 sinon
+ */
+int fget_int_in_bound(FILE* in, void* v, int min, int max);
+
+/**
+    Charge les valeurs du fichier 'fname'.sav
+    param 'p' : Pointeur vers le player où stocker les données
+    param 'fname' : Nom du fichier où lire les données
+    param 'lastworld' : Pointeur où mettre le dernier monde débloqué 
+    param 'currentworld' : Pointeur où mettre le monde en cours (0 si aucun monde en cours)
+    param 'fpos' : Pointeur où mettre la position de la tête de lecture du fichier
+    param 'score' : Pointeur où mettre le score actuel du joueur dans le monde courant
+    retour : 0 si le fichier ne peut pas être ouvert ou qu'une valeur lue est non valide (plus de pv que de pv max)
+             1 sinon
+ */
+int load_partie(Player *p, char* fname, int* lastworld, int* currentworld, int* fpos, int* score);
+
+/**
+    Fonction Privée
+    Parcours un fichier en cherchant le nombre de vagues
+    param 'file' : Fichier ouvert en lecture contant un monde
+    retour : Le nombre de vague
+ */
+static int find_nb_wave(FILE* file);
+
+/**
+    Lit le fichier terrain->level et fait apparaitre des ennemis à des moments précis
+    param 'terrain' : Structure contenant le terrain où faire apparaitre les ennemis
+    param 'para' : Structure contenant les paramètres de la partie en cours
+    param 'fname' : Nom du fichier où sauvegarder lors de la lecture d'un checkpoint
+    param 'last_world' : Dernier monde atteint par le joueur
+    retour : 0 si le fichier est corrompu/incomplet
+             1 si tout se passe bien  */
+int read_file(Terrain* terrain, Parametre* para, char* fname, int last_world);
+
+/**
+    Ajoute un score et un nom dans le fichier de score du monde courant
+    param 'nom' : Nom du joueur
+    param 'score' : Score du joueur
+    param 'num' : Numéro du monde courant
+ */
+void add_scoreboard(char *nom, int score, int num);
+
+/**
+    Sauvegarde des scores et des noms dans le fichier du monde courant
+    param 'scores' : Tableau de scores
+    param 'noms' : Tableau de noms
+    param 'num' : Numéro du monde en cours
+    param 'len' : Taille des tableaux 'scores' et 'noms'
+    retour : 0 si le fichier du monde ne peut pas être ouvert
+             1 si le score est bien sauvegardé
+ */
+int save_scoreboard(int scores[], char noms[][STRING_LEN___], int num, int len);
+
+/**
+    Charge les scores du monde courant
+    param 'scores' : Tableau où sont stocké les scores lu
+    param 'noms' : Tableau où sont stocké les noms lu
+    param 'num' : Numéro du monde courant
+    retour : Le nombre de scores chargés
+             0 si le fichier est vide ou inexistant
+ */
+int load_scoreboard(int scores[], char noms[][STRING_LEN___], int num);

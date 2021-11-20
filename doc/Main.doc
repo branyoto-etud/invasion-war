@@ -1,0 +1,10 @@
+/** 
+    Point d'entré du programme.
+    Initialise des données comme la structure data
+    et appel le menu principal du programme
+    
+    Le main renvoie 1 s'il rencontre une erreur fatale
+    (Impossible de lire les options, de charger une image/son, de démarer le lecteur audio...)
+    Si aucun problème ne surviens il renvoie 0
+ */
+int main();

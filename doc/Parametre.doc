@@ -1,0 +1,27 @@
+/** Il devait y avoir une option pour modifié l'apparition des bonus
+    Mais par étourderie elle à été oublié dans les options
+    donc il est possible de ne pas faire apparaitre certains bonus naturellement
+    mais il n'y a pas d'interface, il faut allé dans data/option.dat et mettre
+    à 0 les bonus que l'on ne veut pas (2eme ligne) */
+
+
+/**
+    Initialise toutes les tailles  de 'sizes' à 'val'
+*/
+void init_sizes(Sizes *sizes, int val);
+
+/**
+    Stock dans 'w' et 'h' la valeur de 'sizes' correspondante à un blaster chargé avec 'damage' puissance
+*/
+void get_charged_size(Sizes *sizes, int damage, int *w, int *h);
+
+/**
+    Renvoie 1 si aucun bonus n'est activé 0 sinon
+*/
+int no_bonus(Parametre* para);
+
+/**
+    Stock dans 'w' et 'h' la valeur de sizes correspondante à l'ennemi de type 'type'
+*/
+void get_enemy_size(Sizes *sizes, int type, int* w, int* h);
+

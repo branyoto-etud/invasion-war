@@ -1,0 +1,83 @@
+/** Ce module à été fait pour un autre projet d'où la crétion de fonctions
+inutilisée dans ce projet
+(Meme si la fonction d'affichage a été refaite spécialement pour ce projet) */
+
+
+/**
+    Redimentionne la valeur 'x' venant de l'interval ['min1', 'max1']
+    vers l'intervam ['min2', 'max2']
+    Renvoie la valeur obtenue
+ */
+int map(int x, int min1, int max1, int min2, int max2);
+
+/**
+    Affiche le 'slider'
+    Si 'value' vaut 1 la valeur sera aussi affichée 
+    Si 'value' vaut 0 la valeur ne sera pas affichée
+*/
+void affiche_slider(Slider* slider, int value);
+
+/**
+    Initialise le 'slider' avec comme borne 'min' et 'max'
+    et pour valeur la moitié de cet écart
+*/
+void init_slider(Slider *slider, int min, int max);
+
+/**
+    Renvoie 1 si les coos ('x','y') sont dans le slider (avec un écart de 10 pixel de hauteur) 
+            0 sinon
+*/
+int in_slider(Slider* slider, int x, int y);
+
+/**
+    Ajoute 'x' à la valeur de 'slider'
+    Renvoie 0 si la valeur obtenue est suppérieur au max du slider et met la valeur du slider à max
+            1 sinon
+*/
+int add_to_slider(Slider *slider, int x);
+
+/**
+    Enleve 'x' à la valeur de 'slider'
+    Renvoie 0 si la valeur obtenue est inférieur au min du slider et met la valeur du slider à min
+            1 sinon
+*/
+int remove_from_slider(Slider *slider, int x);
+
+/**
+    Met la valeur de 'slider' à 'x'
+    Renvoie 0 si 'x' n'est pas entre le min et le max du slider (mais met la valeur du slider à la borne la plus proche)
+            1 sinon
+*/
+int set_slider_value(Slider *slider, int x);
+
+/**
+    Met la position du 'slider' aux coordonnées ('x', 'y')
+*/
+int modif_slider_pos(Slider *slider, int x, int y);
+
+/**
+    Met la largeur du 'slider' à 'w' >= 0
+    Renvoie 0 si w est < 0
+            1 sinon
+*/
+int modif_slider_width(Slider *slider, int w);
+
+/**
+    Met le minimum du 'slider' à 'min'
+    Renvoie 0 si le 'min' est suppérieur au max du slider
+            1 sinon
+*/
+int modif_slider_min(Slider *slider, int min);
+
+/**
+    Met le maximum du 'slider' à 'max'
+    Renvoie 0 si le 'max' est inférieur au min du slider
+            1 sinon
+*/
+int modif_slider_max(Slider *slider, int max);
+
+/**
+    Renvoie la valeur des coordonnées ('x', 'y') dans le 'slider' en fonction de la largeur du slider et de son max
+    Renvoie 0 si les coordonnées ne sont pas dans le slider
+*/
+int get_value_with_proportion(Slider *slider, int x, int y);

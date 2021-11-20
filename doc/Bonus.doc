@@ -1,0 +1,47 @@
+/**
+    Fonction Privée
+    Echange la valeur du pointeur 'a' avec la valeur du pointeur 'b'
+*/
+static void swap(Bonus* a, Bonus* b) ;
+
+/**
+    Initialise les valeurs de 'bonus'
+    param 'bonus' : Pointeur de la structure à initialiser
+    param 'power' : Effet produit par le bonus 
+    param 'x' : Abscisse du centre du bonus 
+    param 'y' : Ordonnee du centre du bonus 
+    param 'rayon' : Rayon du bonus
+ */
+void init_bonus(Bonus* bonus, Power power, int x, int y, int rayon);
+
+/**
+    Met à jour la position du bonus 'b'
+    param 'b' : Bonus à mettre à jour
+    param 'window_height' : Hauteur de la fenetre de jeu
+    retour : 0 si le bonus atteint le bas de l'écran
+             1 sinon
+ */
+int bonus_update(Bonus* b, int window_height);
+
+/**
+    Parcours le tableau 'tab' de 'n' elements et décale les bonus morts à la fin du tableau
+    (Les bonus ne sont pas réinitialisé à une valeur par default et sont toujours accessibles (techniquement))
+    param 'tab : Tableau de Bonus 
+    param 'n' : Nombre de bonus contenus dans le tableau
+    retour : la taille du tableau après suppression des bonus morts
+ */
+int bonus_remove(Bonus tab[], int n);
+
+/**
+    Permet de savoir le prix du bonus de type 'power'
+    retour : La valeur correpondante à 'power'
+             -1 s'il n'a pas de valeur 
+ */
+int get_bonus_price(Power power);
+
+/**
+    Permet d'avoir une courte description de 'power'
+    retour : La description correpondante à 'power'
+             Une chaine vide s'il n'a pas de description
+ */
+const char* get_bonus_description(Power power);

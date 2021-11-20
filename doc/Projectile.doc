@@ -1,0 +1,37 @@
+/**
+    Initialise le projectile 'p' avec le type 'type' les coordonnées 'x' et 'y',
+    les dimentions 'w' et 'h' et les dégats 'damage'
+*/
+void init_projectile(Projectile* p, ProjectileType type, int x, int y, int w, int h, int damage, int dx, int dy, int speed);
+
+/**
+    Met à jours la direction du projectile 'p'
+    pour qu'il cible le joueur en ('px', 'py') avec une vitesse de 'speed'
+*/
+void update_projectile_direction(Projectile* p, int px, int py, int speed);
+
+/**
+    Se déplace de p->speed pixel en direction du joueur ('px','py') étant le centre du joueur
+*/
+void move_to_player(Projectile *p, int px, int py);
+
+/**
+    Fonction Privée
+    Echange la valeur du pointeur 'a' avec la valeur du pointeur 'b'
+*/
+static void swap(Projectile* a, Projectile* b);
+
+/**
+    Parcours le tableau 'tab' de 'n' elements et décale les projectiles morts à la fin du tableau
+    (Les projectiles ne sont pas réinitialisé à une valeur par default et sont toujours accessibles (techniquement))
+    param 'tab : Tableau de projectiles
+    param 'n' : Nombre de projectiles contenus dans le tableau
+    retour : la taille du tableau après suppression des projectiles morts
+ */
+int projectile_remove(Projectile tab[], int n);
+
+/**
+    Met à jour la position du projectile en fonction de son type
+    Renvoie 1 si il est en vie 0 s'il est mort
+*/
+int projectile_update(Projectile *p, Parametre* para, int px, int py);

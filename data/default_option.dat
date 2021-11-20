@@ -1,0 +1,12 @@
+700 900 50 50 1
+1 1 1 1 1 1 1 1 1 1
+273 276 274 275 38 34 39 233
+122 113 115 100 32 118 98 99
+
+/* NE PAS MODIFIER!
+  Tout ce qui est après la ligne 4 ne sera pas lu.
+  ligne 1 : largeur hauteur volume_son volume_musique fond_ecran
+  ligne 2 : chaque nombre représente un bonus actif (1) ou inactif (0) 
+  ligne 3 : code des touches primaires du joueur [haut, gauche, bas, droite, tir, missile, bonus, charger]
+  ligne 4 : code des touches secondaires du joueur
+*/

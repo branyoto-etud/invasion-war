@@ -1,0 +1,167 @@
+
+/**
+    Initialise le terrain en ouvrant le fichier lvl_num
+    et positionne le joueur en bas au centre de l'écran
+    Toutes les valeurs autres que le joueur, le fichier et le score sont mise
+    à des valeurs par default
+    Return 1 si le fichier est correctement chargé, 0 sinon
+*/
+int init_terrain(Terrain* terrain, Parametre* para, Player *player, int lvl_num, int fpos, int score);
+
+/**
+    Ajoute un projectile à la fin du tableau 'terrain->projectiles'
+    Si il n'y a plus de place, on écrase le dernier projectile avec celui devant être généré
+    Normalement il n'est pas possible de monté jusqu'à 500 projectiles (Je n'ai jamais atteint plus de 200)
+    mais une sécurité est nescessaire
+*/
+void add_projectile(Terrain *terrain, ProjectileType type, int x, int y, int w, int h, int damage, int dx, int dy, int speed);
+
+/**
+    Fait apparaitre un Boss en fonction du monde courant
+    Monde 1 => Boss1, Monde 2 => Boss2 ...
+*/
+void add_boss(Terrain *terrain, Parametre* para);
+
+/**
+    Ajoute un ennemi à la fin du tableau 'terrain->enemies'
+    Si il n'y a plus de place, on écrase le dernier ennemi avec celui devant être généré
+*/
+void add_enemy(Terrain *terrain, EnemyType type, Pattern pattern, int x, int y, int w, int h, int speed);
+
+/**
+    Tir une fois fait 40 points de dégats
+*/
+static void single_shot(Terrain* terrain, Parametre* para);
+
+/**
+    Tir deux fois fait 42 points de dégats au total
+*/
+static void dual_shot(Terrain* terrain, Parametre* para);
+
+/**
+    Tir trois fois fait 45 points de dégats au total
+*/
+static void triple_shot(Terrain* terrain, Parametre* para);
+
+/**
+    Tir quatre fois fait 48 points de dégats au total
+*/
+static void quadra_shot(Terrain* terrain, Parametre* para);
+
+/**
+    Fait tirer le joueur en fonction du bonus qu'il possède
+*/
+void blaster(Terrain *terrain, Parametre *para);
+
+/**
+    Gère les tirs du joueur en fonctions des touches appuyées 
+    Prends en compte le cooldown
+    Renvoie 1 si il y a eu tir et 0 sinon
+*/
+int shoot(Terrain *terrain, int key_hist[], Parametre *para);
+
+/**
+    Provoque un effet en accord avec les touches appuyées
+    (Pause, déplacement, tir, invincibilité...)
+    Renvoie 0 si l'utilisateur veut quitter le jeu et 1 sinon
+*/
+int use_key(Terrain *terrain, int key_hist[], Parametre *para);
+
+/**
+    Augmente toutes les horloges internes des entitées
+    Si le bullet time est actif les horloges sont ralenties
+*/
+void inc_clocks(Terrain *terrain);
+
+/**
+    Gère la mort d'un ennemi (donne des points, fait apparaitre des ennemis...)
+    A la mort les ennemis (autre que l'ennemi Spécial)
+    ont 5% de chance de faire apparaitre un bonus
+*/
+void enemy_death(Terrain* terrain, Enemy* enemy, Parametre* para);
+
+/**
+    Fonction Privée
+    Calcul la distance entre ('x1', 'y1') et ('x2', 'y2')
+    et renvoie cette valeur non mise à la racine
+*/
+static int dist_carre(int x1, int y1, int x2, int y2);
+
+/**
+    Renvoie 1 si il y a une collision entre 'pr' et 'p'
+*/
+int collision_projectile_player(Projectile pr, Player p);
+
+/**
+    Renvoie 1 si il y a une collision entre 'p' et 'e'
+*/
+int collision_projectile_enemy(Projectile p, Enemy e);
+
+/**
+    Renvoie 1 si il y a une collision entre 'p' et 'e'
+*/
+int collision_player_enemy(Player p, Enemy e);
+
+/**
+    Renvoie 1 si il y a une collision entre 'p' et 'b'
+*/
+int collision_player_bonus(Player p, Bonus b);
+
+/**
+    Test si un objet rentre en collision avec un autre.
+    Prends aussi en compte la taille de l'explosion du missile
+*/
+int terrain_collisions(Terrain* terrain, Parametre* para);
+
+/**
+    Prépare le boss à foncer vers le bas de l'écran
+    Durant son dash le boss est invincible
+*/
+void boss_dash(Terrain* terrain, Parametre *para, Enemy* enemy);
+
+/**
+    Fait tirer 7 BBlaster à partir du centtre du boss ayant une forme de
+    demi cercle
+*/
+void boss_seven_shoot(Terrain* terrain, Parametre* para, Enemy* enemy);
+
+/**
+    Fait apparaitre une ligne de 4 ennemis
+*/
+void boss_summon_enemies(Terrain* terrain, Parametre* para, Enemy* enemy);
+
+/**
+    Fait tirer 2 tir à tête chercheuse au boss
+*/
+void boss_auto_shoot(Terrain* terrain, Parametre* para, Enemy* enemy);
+
+/**
+    Fait tirer des BBlaster venant des cotés de l'écran et le traversant
+*/
+void boss_grid_shoot(Terrain* terrain, Parametre* para, Enemy* enemy);
+
+/**
+    Fait faire une action au boss en fonction de 'action_number'
+*/
+void boss_select_action(Terrain *terrain, Parametre* para, Enemy* enemy, int action_number);
+
+/**
+    Appel boss_select_action avec le numéro d'action correspondant au boss du niveau courant
+    Chaque action a un pourcentage d'être réalisée qui dépends encore une fois du niveau courant
+    Par exemple le Boss1 fera l'action 0
+                le Boss2 fera l'action 0 ou 1
+                ...
+*/
+void boss_shoot(Terrain* terrain, Parametre* para, Enemy* enemy);
+
+/**
+    Fait tirer l'ennemi 'enemy' en fonction de son type
+    La puissance, vitesse et le type du tir dépends de l'ennemi tirant
+*/
+void enemy_shoot(Terrain* terrain, Parametre* para, Enemy* enemy);
+
+/**
+    Met tous les éléments du terrain à jour
+    Renvoie 1 si tout se passe bien et 0 si erreur de lecture du fichier
+*/
+int terrain_update(Terrain* terrain, Parametre *para, int* shop, char* fname, int last_world);

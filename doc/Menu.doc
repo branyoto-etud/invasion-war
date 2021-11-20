@@ -1,0 +1,260 @@
+
+/**
+    Alloue une etoile ayant pour ordonnée 'y' et
+    pour abscisse un nombre entre 'min' et 'max' 
+    
+    Renvoie l'adresse de l'étoile allouée.
+*/
+Star* alloue_star(int min, int max, int y);
+
+/**
+    Remplit 'tab' de 'taille' étoiles ayant pour abscisse un nombre entre
+    0 et 'width' et comme ordonnée un entier entre 0 et  'height'
+*/
+void fill_star_tab(Star** tab, int width, int height, int taille);
+
+/**
+    Met à jour les étoiles de 'tab' ayant 'taille' elements
+    Si une étoile touche le bas de l'écran ('height')
+    elle est regénérée en haut de l'écran avec un nouvel abscisse
+*/
+void update_stars(Star** tab, int width, int height, int taille);
+
+/**
+    Affiche toutes les étoiles en dessinant des cercles à leur position
+*/
+void draw_stars(Star** tab, int taille);
+
+
+/**
+    Renvoie 1 si le clic (mx, my) est dans la boite ancré en (bx, by)
+    et de dimention bw et bh
+            0 sinon
+*/
+int in_box(int mx, int my, int bx, int by, int bw, int bh);
+
+/**
+    Modifie les valeurs de pressed, holded et selection en fonction
+    de si l'evenement est bien un clic gauche
+    et de si le bouton est pressé ou relaché
+*/
+void select_holded_button(MLV_Event event, MLV_Mouse_button button, MLV_Button_state state, Selection hover, int *pressed, Selection *holded, Selection *select);
+
+/**
+    Affiche un menu permettant au joueur de rentrer son nom dans une
+    MLV_input_box.
+    Renvoie 0 pour quiter le menu 1 sinon
+*/
+int new_player(char* name, int taken);
+
+/**
+    Renvoie la couleur correspondant au rang 'pos' avec un alpha 'alpha'
+    Sert principalement à l'affichage du leaderboard
+*/
+MLV_Color rank(int pos, int alpha);
+
+/**
+    Renvoie une couleur correpondante à la page 'numpage' avec un alpha de 'alpha'
+    Sert principalement à afficher le menu de chargement
+*/
+MLV_Color set_player_color(int numpage, int alpha)
+
+/**
+    Renvoie 1 si le bonus 'stock' correspond à un bonus pouvant etre stocké
+    écris le chemin de ce bonus dans 'path_bonus'
+*/
+int get_bonus_path(char* path_bonus, int stock, int frame);
+
+/**
+    Charge les valeurs des touches de 'para' et les sauvegardes dans 'tab'
+*/
+void load_unicodes(char tab[][STRING_LEN___], Parametre* para);
+
+/**
+    Met dans 'str' la chaine correspondante à 'touche'
+*/
+void set_unicode(char* str, MLV_Keyboard_button touche);
+
+/**
+    Change la valeur de la touche selectionnée par key
+    Si key n'est pas valide la fonction renvoie 0 et ne change pas la touche selectionnée
+*/
+int set_new_key(Parametre* para, MLV_Keyboard_button key, Selection select);
+
+/**
+    Retire le 'data/save' et le '.sav' de 'nom'
+*/
+void remove_path(char* nom);
+
+/**
+    Revoie une cellule PlayerStats contenant 'nom'
+    et n'ayant pas de suivant ni de précédent
+*/
+Liste alloueCellule(char* nom);
+
+/**
+    Ajoute 'cell' à la fin de 'lst'
+*/
+void ajouteFinListe(Liste* lst, PlayerStats *cell)
+
+/** 
+    Fonction auxiliaire de ftw.
+    Stock le fichier lu dans le fichier 'OUT'
+    pour pouvoir le réutiliser plus tard 
+    Ne stock que les fichiers
+*/
+int write_out(const char* fpath, const struct stat *sb, int typeflag);
+
+/**
+    Lit le fichier 'OUT' et enregistre dans la liste 'lst' les noms
+    de fichier trouvés.
+    Renvoie la taille de 'lst'
+*/
+int out_to_list(Liste* lst);
+
+/**
+    Obsolète
+    Affiche dans le terminal la list 'lst'
+*/
+void afficheListe(Liste lst);
+
+/**
+    Change la valeur de 'hover' en fonction de la position du curseur (x,y)
+    dans le menu principal
+*/
+void hover_menu_prcp(Selection *hover, int x, int y);
+
+/**
+    Change la valeur de 'hover' en fonction de la position du curseur (x,y)
+    dans le menu charger
+*/
+void hover_menu_chrg(Selection *hover, int x, int y);
+
+/**
+    Change la valeur de 'hover' en fonction de la position du curseur (x,y)
+    dans le menu de choix des mondes
+*/
+void hover_menu_mnde(Selection *hover, int x, int y)
+
+/**
+    Change la valeur de 'hover' en fonction de la position du curseur (x,y)
+    dans le menu leaderboard
+*/
+void hover_menu_ldbd(Selection *hover, int x, int y);
+
+/**
+    Change la valeur de 'hover' en fonction de la position du curseur (x,y)
+    dans le menu des options
+    'ingame' est un booléen servant à ne pas modifier
+    la taille de la fenetre en cours de partie
+*/
+void hover_menu_optn(Selection *hover, int ingame, int x, int y);
+
+/**
+    Change la valeur de 'hover' en fonction de la position du curseur (x,y)
+    dans le menu pause
+    Nescessite de connaitre la largeur et la hauteur
+    car ce menu dépends de la taille de la fenetre contrairement aux autres
+*/
+void hover_menu_pause(Selection *hover, int x, int y, int width, int height);
+
+/**
+    Dessine le menu principale
+*/
+void draw_menu_prcp(Selection hover, int frame, MLV_Button_state state, int save_found);
+
+/**
+    Dessine le menu de chargement
+*/
+void draw_menu_chrg(Player player, char* nom, int currentworld, int score, int pages, int numpage, int frame, Selection hover, MLV_Image *bg);
+
+/**
+    Dessine le menu des mondes
+*/
+void draw_menu_mnde(int lvl, int last, int frame, Selection hover, MLV_Image *bg);
+
+/**
+    Dessine le menu du leaderboard
+*/
+void draw_menu_ldbd(int lvl, int frame, Selection hover, MLV_Image *bg, MLV_Button_state state);
+
+/**
+    Dessine le menu des options
+*/
+void draw_menu_optn(Parametre* para, Slider sliders[], int ingame, Selection hover, Selection select, int frame);
+
+/**
+    Dessine le menu pause
+*/
+void draw_menu_pause(int width, int height, Selection hover, MLV_Button_state state);
+
+/**
+    Dessine le magasin
+*/
+void draw_shop_menu(Terrain* terrain, Parametre* para, ImgList* img_list, Power selected, int frame, int *err_msg);
+
+/**
+    Gere les actions produite lorsque le menu principal est affiché
+*/
+void menu_principal(Data* data);
+
+/**
+    Gere les actions produite lorsque le menu de creation de partie est affiché
+    Renvoie 0 si aucune save n'est créée 1 sinon 
+*/
+int menu_nouv_partie(Data* data);
+
+/**
+    Menu de choix de la partie à lancer
+    Renvoie 0 si il n'y a pas de save
+            1 si tout vas bien
+*/
+int menu_charger(Data* data);
+
+/**
+    Menu du choix du monde à lancer
+    Renvoie 1 si on veut retourner dans le menu monde 0 sinon
+*/
+int menu_monde(Data* data, Player* player, int currentworld, int fpos, int score);
+
+/**
+    Menu du tableau de score (leaderboard)
+    Gere les changements de pages
+*/
+void menu_leaderboard();
+
+/**
+    Menu des options
+    Renvoie 1 si les dimentions de la fenetre ont été modifié 0 sinon
+*/
+int menu_options(Parametre* para, int ingame);
+
+/**
+    Menu du choix du monde à lancer
+    Renvoie 1 si on veut quitter la partie 0 sinon
+*/
+int menu_pause(Parametre* para);
+
+/**
+    Utilise le clic (x,y) pour changer la valeur de 'selected' dans le magasin
+*/
+void select_bonus(Power* selected, Parametre* para, int x, int y);
+
+/**
+    Utilise les touches pour changer la valeur de 'selected' dans le magasin
+*/
+void select_bonus_keyboard(Power* selected, MLV_Keyboard_button button, Parametre* para)
+
+/**
+    Tente d'acheter le bonus 'selected'.
+    Renvoie 1 si aucun bonus n'est séléctionné,
+            2 si le bonus est déjà possédé,
+            3 si le player est déjà au maximum de sa vie et qu'il essaie de l'augmenter
+            4 s'il n'a pas asser d'argent
+*/
+int buy_bonus(Terrain* terrain, Power selected);
+
+/**
+    Affiche le menu du magasin et gère les tentatives d'achat
+*/
+void shop_menu(Parametre* para, Terrain* terrain, ImgList* img_list);

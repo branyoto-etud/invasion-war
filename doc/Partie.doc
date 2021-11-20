@@ -1,0 +1,34 @@
+
+/**
+    Initialise toutes les valeurs de 'tab' de taille 'n' à la valeur 'v'
+*/
+void init_tab(int tab[], int n, int v);
+
+/**
+    Modifie les valeurs du tableau 'key_hist' grace à 'key', 'state' et 'event'
+*/
+void use_event(int event, int state, int key, int key_hist[]);
+
+/**
+    Met à jour les tableaux de projectiles, ennemies et bonus en supprimant les morts
+*/
+void check_death(Terrain* terrain);
+
+/**
+    Renvoie 1 si la partie est finie 0 sinon
+*/
+int game_ended(Terrain* terrain, Parametre* para, int *boss);
+
+/**
+    Gere le deroulement d'une partie.
+    Initialise les valeurs et demarre une partie puis tant que la partie est en cours,
+    Affiche l'écran, met à jour les elements du terrain, gère le son et les collisions
+    et fait une pause si la frame est trop courte
+    (Subtilitee lorsque le joueur meurt ou quitte il y a un appel à readfile()
+    pour remettre les valeurs statique à la fonction a une valeur de default)
+    
+    Renvoie -2 si erreur survient
+            -1 si le joueur quitte
+            le score si tout se passe bien
+*/
+int boucle_de_jeu(Data* data, Player* player, int world_number, int fpos, int score);

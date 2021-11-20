@@ -1,0 +1,25 @@
+
+/**
+    Libère les sons contenus dans 'sound_list'
+*/
+void free_sound(SoundList* sound_list);
+
+/**
+    Initialise les sons de 'sound_list'
+    Mais avec les sons bonus
+    Renvoie 0 si un son ne peut pas etre chargé
+            1 sinon
+*/
+int init_bonus_sound(SoundList* sound_list);
+
+/**
+    Initialise les sons de 'sound_list'
+    Renvoie 0 si un son ne peut pas etre chargé
+            1 sinon
+*/
+int init_sound(SoundList* sound_list);
+
+/**
+    Joue les sons en fonction des evenements de la partie et du volume des paramètres
+*/
+void joue_son(SoundList* list, Terrain* terrain, Parametre* para, int boss);

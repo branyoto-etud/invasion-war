@@ -1,0 +1,35 @@
+/**
+    Initialise le joueur 'player' avec les coordonnées ('x', 'y') et les dimentions 'w' et 'h'
+*/
+void init_player(Player *player, int x, int y, int w, int h);
+
+/**
+    Met à jours le joueur en fonction de sa vitesse et de son acceleration
+    Gère aussi le cooldown des armes
+*/
+void player_update(Player *player, Parametre *para);
+
+/**
+    Déplace le joueur en fonction des touches appuyées
+    Les touches de déplacement sont contenues dans 'para'
+*/
+void move_player(Player *p, int key_hist[], Parametre *para);
+
+/**
+    Donne l'effet Power au joueur
+*/
+void apply_bonus(Player *player, Power power)
+
+/**
+    Applique 'amount' point de dégats au joueur
+    Ne fait rien si le joueur est invincible 
+    Renvoie 1 si le joueur est mort
+            0 sinon
+*/
+int damage_player(Player* player, int amount);
+
+/**
+    Renvoie 1 si le joueur est mort 0 s'il est en vie
+*/
+int player_dead(Player p);
+

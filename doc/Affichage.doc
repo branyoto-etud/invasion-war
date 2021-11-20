@@ -1,0 +1,213 @@
+/**
+Fonction privée
+Renvoie le minimum entre 'a' et 'b' qui sont des double
+*/
+static double dmin(double a, double b);
+
+/**
+    Charge une image et affiche un écran de chargement (ralentissement mais plus beau)
+    param 'lst' : Structure contenant l'image présente dans l'écran de chargement
+    param 'path' : Chemin de l'image à charger
+    param 'frame' : Le numéro à ajouter à la fin de 'path'
+                   -1 s'il n'y a pas de numéro
+                   -2 pour initialiser
+    retour : L'image chargée
+             NULL si l'image ne peut pas être chargée
+ */
+MLV_Image* load_img(ImgList *lst, char* path, int frame);
+
+/**
+    Initialise la structure Sizes en utilisant la taille des images de 'img_list'
+    Si une image vaut NULL la valeur de 'sizes' correspondante ne sera pas initialisée
+    param 'img_list' : Liste des images charger
+    param 'sizes' : Structure à initialiser
+ */
+void init_real_sizes(ImgList* img_list, Sizes* sizes);
+
+/**
+    Libère toutes les images présentes dans 'img_list'
+*/
+void free_image(ImgList *img_list);
+
+/**
+    Charge toutes les images nescessaires au jeu
+    Chaque image se voit appliqué un redimentionnement en utilisant une échelle
+    qui dépends de la taille de la fenetre
+    A la fin de la fonction on appel init_real_size() pour initialiser 'para'
+    param 'img_list' : Liste des images à initialiser
+    param 'para' : Paramètre du jeu
+    retour : 0 si une image ne peut pas être chargée
+             1 si toutes les images sont bien chargées
+ */
+int img_chargement(ImgList * img_list, Parametre *para);
+
+/**
+    Libère toutes les images présentes dans 'img_list' ayant un rapport
+    avec le mode bonus
+*/
+void free_bonus_image(ImgList * img_list);
+
+/**
+    Charge toutes les images nescessaires au lancement du mode bonus
+    Chaque image se voit appliqué un redimentionnement en utilisant une échelle
+    qui dépends de la taille de la fenetre
+    A la fin de la fonction on appel init_real_size() pour initialiser 'para'
+    param 'img_list' : Liste des images à initialiser
+    param 'para' : Paramètre du jeu
+    retour : 0 si une image ne peut pas être chargée
+             1 si toutes les images sont bien chargées
+ */
+int img_chargement_bonus(ImgList * img_list, Parametre *para);
+
+/**
+    Renvoie une image d'un PBlaster_Charged de 'img_list' correspondant à la taille 'size' et la frame 'frame' passée en paramètre
+*/
+MLV_Image* get_blaster_image(ImgList *img_list, int frame, int size);
+
+/**
+    Renvoie une image de 'img_list' correspondant au 'type' à la 'frame' et à la 'size' d'un projectile mort
+*/
+MLV_Image* get_dead_projectile_image(ImgList *img_list, ProjectileType type, int frame, int size);
+
+/**
+    Renvoie une image de 'img_list' correspondant au 'type' à la 'frame' et à la 'size' d'un projectile
+*/
+MLV_Image* get_projectile_image(ImgList *img_list, ProjectileType type, int frame, int size);
+
+/**
+    Renvoie une image de 'img_list' correspondant au 'type' à la 'frame' d'un boss mort
+*/
+MLV_Image* get_dead_boss_image(ImgList *img_list, EnemyType type, int frame);
+
+/**
+    Renvoie une image de 'img_list' correspondant au 'type' à la 'frame' d'un boss
+*/
+MLV_Image* get_boss_image(ImgList *img_list, EnemyType type, int frame);
+
+/**
+    Renvoie une image de 'img_list' correspondant au 'type' à la 'frame' d'un ennemi mort
+*/
+MLV_Image* get_dead_enemy_image(ImgList *img_list, EnemyType type, int frame);
+
+/**
+    Renvoie une image de 'img_list' correspondant au 'type' à la 'frame' d'un ennemi
+*/
+MLV_Image* get_enemy_image(ImgList *img_list, EnemyType type, int frame);
+
+/**
+    Renvoie une image de 'img_list' correspondant au 'power' à la 'frame' d'un bonus
+*/
+MLV_Image* get_bonus_image(ImgList *img_list, Power power, int frame);
+
+/**
+    Fonction Privée
+    Echange l'entier pointé par 'a' et l'entier pointé par 'b'
+*/
+static void swap(int* a, int* b);
+
+/**
+    Dessine une fleche ancré en ('x','y') de dimention 'w' et 'h', de couleur
+    'color' et faisant face au Nord (0), Sud (1), Est (2) ou Ouest (3)
+*/
+void draw_arrow(int x, int y, int w, int h, MLV_Color color, int orient) ;
+
+/**
+    Dessine une fleche coudé ancré en ('x','y') de dimention 'w' et 'h', de couleur
+    'color' et faisant face au Nord (0, 1), Sud (2, 3), Est (4, 5) ou Ouest (6, 7)
+    Les orientations impaires ont le coude à droite ou en bas de la fleche 
+*/
+void draw_turn_arrow(int x, int y, int w, int h, MLV_Color color, int orient);
+
+/**
+    Affiche un texte 'text' centré en ('x', 'y') de police 'font' et de couleur 'color'
+*/
+void draw_centered_text(int x, int y, const char* text, MLV_Font* font, MLV_Color color);
+
+/**
+    Dessine une boite de texte centré dans une boite en (MENU_WIDTH/2, y) et de dimention (box_width, box_height)
+    Contenant le texte 'text' de police 'font' et de couleur 'color'
+*/
+void draw_centered_textbox(int y, int box_width, int box_height, MLV_Font *font, char* text, MLV_Color color);
+
+/**
+    Dessine une barre verticale en ('x', 'y') centrée sur la largeur et faisant 3 pixels d'épaisseur
+    La couleur est déterminée par la valeur de pv.
+    Si elle est > à MAX_HEALTH*2 elle sera légèrement jaune sinon elle sera légèrement orange
+    Ainsi qu'un petit triangle pour la rendre plus belle.
+*/
+void draw_cursor(int x, int y, int pv);
+
+/**
+    Affiche le projectile 'p' sur l'écran
+    En choisissant une image dans 'img_list' en fonction de son type et de sa frame
+    Si l'image reçu est NULL un rectangle Rouge est dessinée à la place de l'image
+    et ayant la meme largeur et hauteur que l'image devrait avoir
+*/
+void draw_projectile(Projectile *p, ImgList *img_list);
+
+/**
+    Affiche le boss 'e' sur l'écran
+    En choisissant une image dans 'img_list' en fonction de son type et de sa frame
+    Si l'image reçu est NULL un rectangle Violet est dessinée à la place de l'image
+    et ayant la meme largeur et hauteur que l'image devrait avoir
+    Sa barre de vie est prévue pour occupée 'width'-20 pixels sur l'écran
+*/
+void draw_boss(Enemy *e, ImgList *img_list, int width);
+
+/**
+    Affiche l'ennemi 'e' sur l'écran
+    En choisissant une image dans 'img_list' en fonction de son type et de sa frame
+    Si l'image reçu est NULL un rectangle Bleu est dessinée à la place de l'image
+    et ayant la meme largeur et hauteur que l'image devrait avoir
+    Si c'est un boss 'width' est utilisé pour afficher sa barre de vie sinon 
+    se paramètre est inutile.
+    mult est un booléen qui faut 1 ssi le bonus multiplicateur (x2) est actif
+    Si l'ennemi meurt le nombre de points qu'il rapporte est aussi affiché
+*/
+void draw_enemy(Enemy *e, ImgList *img_list, int width, int mult);
+
+/**
+    Affiche le bonus 'b' sur l'écran
+    En choisissant une image dans 'img_list' en fonction de son type et de sa frame
+    Si l'image reçu est NULL rien n'est affiché
+*/
+void draw_bonus(Bonus *b, ImgList *img_list);
+
+/**
+    Affiche le joueur 'p' sur l'écran
+    En choisissant une image dans 'img_list' en fonction de sa vitesse et de sa frame
+    Si l'image reçu est NULL rien n'est affiché
+*/
+void draw_player(Player* p, ImgList *img_list);
+
+/**
+    Fonction Privée
+    Limite la valeur de 'v' à 'max'
+    Renvoie la nouvelle valeur de 'v'
+*/
+static int limit_value(int v, int max);
+
+/**
+    Affiche l'interface en bas de l'écran
+    L'interface est composée, de gauche à droite, de:
+        - Le nombre de vagues restantes (en haut)
+        - Le nombre de tirs disponibles
+        - Le remplissage du missile chargé
+        - Le bonus stocké (achat au magasin)
+        - Le score
+        - La.es barre.s de vie et la barre de bouclier
+        - Le nombre de missile restant ainsi que leurs temps de rechargement
+*/
+void draw_stats(Terrain *terrain, Parametre *para, ImgList *img_list);
+
+/**
+    Affiche le fond d'écran qui dépends du monde courant 'lvlnum' et qui défile
+    grace à la valeur de 'scroll'
+*/
+void draw_background(Parametre* para, ImgList *img_list, int scroll, int lvlnum);
+
+/* Affiche TOUT (sans faire d'appel à MLV_actualise_window()) */
+void draw_window_noupdate(Parametre *para, Terrain *terrain, ImgList *img_list, int boss);
+
+/* Affiche TOUT */
+void draw_window(Parametre *para, Terrain *terrain, ImgList *img_list, int boss);

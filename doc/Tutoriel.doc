@@ -1,0 +1,129 @@
+/** Ce fichier est remplit de fonctions privées (sauf une)
+donc la documentation ne rentrera pas vraiment dans les détails */
+
+
+/**
+    Fonction de simulation de ce qui se passe dans le vrai jeu lors de l'appuis sur une touche de tir
+    Si la touche souhaitée est est à 1 dans 'key_hist' alors un tir de blaster est généré
+*/
+static void tuto_blaster(Terrain *terrain, Parametre *para, int key_hist[]);
+
+/**
+    Fonction de simulation de ce qui se passe dans le vrai jeu lors de l'appuis sur une touche de missile
+    Si la touche souhaitée est est à 1 dans 'key_hist' alors un missile est tiré
+*/
+static void tuto_missile(Terrain *terrain, Parametre *para, int key_hist[]);
+
+/**
+    Fonction de simulation de ce qui se passe dans le vrai jeu lors de l'appuis sur une touche de chargement
+    Si la touche souhaitée est est à 1 dans 'key_hist' alors le chargement débutte et un tir apparait
+    si lors du relachement de la touche le chargement est suffisant
+*/
+static void tuto_charged(Terrain *terrain, Parametre *para, int key_hist[]);
+
+/**
+    Fait apparaitre la liste des 4 ennemis principaux du jeu
+    chaqu'un espacé de para->width/5
+*/
+static void summon_list(Terrain *terrain, Parametre* para);
+
+/**
+    Fait apparaitre une colonne de 5 ennemis
+    Servant à tester le propiriété pénétrante du tir chargé
+*/
+static void summon_line(Terrain *terrain, Parametre* para);
+
+/**
+    Fait apparaitre un groupe de 10 ennemis
+    Servant à tester le puissance d'un missile
+*/
+static void summon_group(Terrain *terrain, Parametre *para);
+/**
+    Fait tirer les ennemis en fonction de la valeur de 'moment'
+*/
+static int tuto_shooting(Enemy *e, int moment);
+
+/**
+    Met à jours le player, les ennemis et les projectiles
+    Une condition était prévu pour que le joueur ne puisse pas prendre de dégats
+    (en tuant les projectiles avant ou en les faisant passer à coté)
+    Mais en redimentionnant la fenetre les tirs touchaient toujours avec une certaine
+    dimention. Donc l'ennemi 4 peut toucher le joueur en fonction de la taille de la fenetre
+*/
+static void tuto_update(Terrain *terrain, Data* data, int moment);
+
+
+/**
+    Dessine une touche du clavier sur laquelle le joueur doit appuyer pour passer
+    à l'étape suivante
+*/
+static void draw_button(MLV_Image* button, int x, int y, char* txt, MLV_Font* font);
+
+/**
+    Fonction d'affichage de chaque moments du tuto
+    Beaucoup trop long à détailler mais en gros ça affiche les textes avec des tailles de font corrects
+    Fini par un MLV_actualise_window()
+*/
+static void aff_tuto_moment(Terrain* terrain, Data* data, MLV_Font *font_array[], int moment, Power bonus);
+
+/**
+    Fonction servant à selectionner un bonus durant la phase du shop
+*/
+static void tuto_bonus_keyboard(Power* selected, int key_hist[], Parametre* para),
+
+/**
+    Renvoie 1 si 'm' est le numéro d'une étape où le joueur doit appuyer
+    sur ENTRER ou ESPACE
+*/
+static int wait_key(int m);
+
+/**
+    Vide le terrain
+*/
+static void empty_terrain(Terrain* terrain);
+
+/**
+    N'a un effet que si l'action nescessaire pour passer à l'étape
+    suivante du tuto nescessite l'appuie sur ENTRER ou ESPACE
+    Supprime ou fait apparaitre des ennemis, donne un bonus ou autre
+*/
+static void action(Terrain *terrain, Parametre* para, int *moment);
+
+/**
+    Met à jour le terrain en fonction des touches appuyées
+    et de l'étape actuelle du tuto
+*/
+static void update_with_key(Terrain *terrain, Data *data, int key_hist[], int *moment, Power *selected);
+
+/**
+    Met à jour le terrain en fonction du clic appuyé
+    et de l'étape actuelle du tuto
+*/
+static void update_with_mouse(Terrain *terrain, Data *data, int x, int y, MLV_Mouse_button button, MLV_Button_state state, int *moment, Power* selected);
+
+/**
+    Met à jour le terrain en fonction des evenements ne venant
+    pas directement du joueur. Exemple la mort de tous les ennemis
+    ou encore la mort d'un projectile
+*/
+static void update_with_time(Terrain *terrain, Data *data, int *moment);
+
+/**
+    Initialise 'font_array' avec la font de nom 'font_name' et pouvant acceuillir
+    'size' fois cette font. A la fin le tableau est remplit de la meme font mais ayant
+    des tailles différantes (de 1 à 'size')
+*/
+static void init_font_array(MLV_Font *font_array[], int size, const char* font_name);
+
+/**
+    Fonction principale du tutoriel
+    Simule une partie mais en restreignant les actions que le joueur peut faire
+    Sinon c'est similaire à la fonction boucle_jeu() de Partie.c
+    On affiche, on met à jour, on joue un son et on gère les collisions
+    Fini en libérant les ressources propre au tutoriel (Les fonts)
+    Tout ce qui est image ou sons ne sont pas libéré car ils seront réutilisé pour le vrai jeu
+*/
+void tutoriel(Data* data);
+
+
+

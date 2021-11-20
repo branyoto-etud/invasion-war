@@ -1,0 +1,75 @@
+/**
+    Initialise les valeurs de 'enemy'
+    param 'enemy' : Pointeur de la structure à initialiser
+    param 'type' : Type de l'ennemi
+    param 'x' : Abscisse du centre de l'ennemi
+    param 'y' : Ordonnée du centre de l'ennemi
+    param 'w' : Largeur de l'ennemi
+    param 'h' : Hauteur de l'ennemi
+    param 'speed' : Vitesse de l'ennemi
+*/
+void init_enemy(Enemy *enemy, EnemyType type, Pattern pattern, int x, int y, int w, int h, int speed);
+
+/**
+    Permet de savoir quelle quantité de vie maximum 
+    est attribuée au type d'ennemi 'type'
+    retour : La quantité de vie associé à 'type'
+             0 si il n'a pas de valeur connue
+*/
+int enemy_pv(EnemyType type);
+
+/**
+    Fonction cubique servant au pattern ReverseU et NReverseU
+    param 'x' : Abscisse passé à la fonction cubique
+    retour : L'ordonnée correspondante à 'x'
+*/
+double f_x(double x);
+
+/**
+    Demande si le boss 'boss' doit tirer
+    Un boss a plus de chance de tirer s'il est plus haut niveau
+    Et ses chances augmentent encore s'il perd de la vie
+    (chaque quart de vie perdu augmente la fréquence d'attaque)
+    retour : 1 si le boss doit tirer
+             0 s'il ne doit pas tirer
+*/
+int boss_shooting(Enemy* boss);
+
+/**
+    Demande si l'ennemi 'enemy' doit tirer
+    retour : 1 si l'ennemi doit tirer
+             0 s'il ne doit pas tirer
+ */
+int enemy_shooting(Enemy *enemy);
+
+/**
+    Fait foncer le 'boss' vers le bas de l'écran
+    La durée du "dash" est:
+      80 frames pour charger,
+      30 frames pour "dash",
+      48 frames pour se replacer
+ */
+void boss_dash_update(Enemy* boss);
+
+/**
+    Met à jour la position de l'ennemi 'e' en suivant son pattern
+    param 'para' : Structure contenant les paramètres du jeu
+    retour : 0 si l'ennemi meurt par le bas de l'écran
+             1 sinon
+ */
+int enemy_update(Enemy* e, Parametre *para) 
+
+/**
+    Fonction Privée
+    Echange la valeur du pointeur 'a' avec la valeur du pointeur 'b'
+ */
+static void swap(Enemy* a, Enemy* b);
+
+/**
+    Parcours le tableau 'tab' de 'n' elements et décale les ennemis morts à la fin du tableau
+    (Les ennemis ne sont pas réinitialisé à une valeur par default et sont toujours accessibles (techniquement))
+    param 'tab : Tableau d'ennemis
+    param 'n' : Nombre d'ennemis contenus dans le tableau
+    retour : la taille du tableau après suppression des ennemis morts
+ */
+int enemy_remove(Enemy tab[], int n);
