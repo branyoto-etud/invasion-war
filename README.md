@@ -19,4 +19,4 @@ to send me mail at `bgc77160@gmail.com`.
 
 This project is not maintained nor updated and has even no guarantee to work.  
 It was made at the end of the first semester of my third year of License and 
-was working at this moment on the uni computers.
+was working at this moment on the uni's computers.
